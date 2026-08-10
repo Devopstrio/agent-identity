@@ -29,7 +29,7 @@ async def issue_svid(req: CertificateRequest) -> CertificateResponse:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid public key format."
-        )
+        ) from e
 
     # 3. Issue the X509 SVID
     cert_bytes = ca_instance.issue_workload_certificate(req.agent_id, public_key)
