@@ -1,9 +1,10 @@
-from fastapi import APIRouter, HTTPException, status
+import structlog
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
-import structlog
-from agent_identity.models.agent import CertificateRequest, CertificateResponse
+from fastapi import APIRouter, HTTPException, status
+
 from agent_identity.ca.cert_authority import ca_instance
+from agent_identity.models.agent import CertificateRequest, CertificateResponse
 
 router = APIRouter()
 logger = structlog.get_logger()

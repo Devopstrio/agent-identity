@@ -47,5 +47,6 @@ strict = true
 warn_return_any = true
 warn_unused_configs = true
 
-[mypy-cryptography.*]
-ignore_missing_imports = True
+[[tool.mypy.overrides]]
+module = "cryptography.*"
+ignore_missing_imports = true

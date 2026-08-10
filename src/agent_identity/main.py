@@ -1,7 +1,8 @@
+import structlog
 import uvicorn
 from fastapi import FastAPI
+
 from agent_identity.api.endpoints import router as identity_router
-import structlog
 
 logger = structlog.get_logger()
 

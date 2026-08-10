@@ -1,8 +1,8 @@
-import pytest
-from fastapi.testclient import TestClient
-from agent_identity.main import app
-from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import rsa
+from fastapi.testclient import TestClient
+
+from agent_identity.main import app
 
 client = TestClient(app)
 
