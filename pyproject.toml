@@ -48,6 +48,8 @@ python_version = "3.12"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
+mypy_path = "src"
+explicit_package_bases = true
 
 [[tool.mypy.overrides]]
 module = [
