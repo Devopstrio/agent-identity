@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  agent_identity_db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: agent_identity_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  agent_identity_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - PG_DSN=postgresql://postgres:postgres@agent_identity_db:5432/agent_identity_db
+    depends_on:
+      agent_identity_db:
+        condition: service_healthy
+
+volumes:
+  pg_data:

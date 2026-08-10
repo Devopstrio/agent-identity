@@ -34,7 +34,7 @@ class CertificateAuthority:
             x509.BasicConstraints(ca=True, path_length=None), critical=True,
         ).sign(self.private_key, hashes.SHA256())
 
-    def issue_workload_certificate(self, agent_id: str, public_key: rsa.RSAPublicKey) -> bytes:
+    def issue_workload_certificate(self, agent_id: str, public_key: rsa.RSAPublicKey) -> tuple[x509.Certificate, bytes]:
         spiffe_id = f"spiffe://{self.domain}/agent/{agent_id}"
         
         subject = x509.Name([
@@ -59,7 +59,7 @@ class CertificateAuthority:
             critical=False,
         ).sign(self.private_key, hashes.SHA256())
         
-        return cert.public_bytes(serialization.Encoding.PEM)
+        return cert, cert.public_bytes(serialization.Encoding.PEM)
 
 # Global CA instance for simplicity
 ca_instance = CertificateAuthority()
