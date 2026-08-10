@@ -75,4 +75,4 @@ class PostgresAdapter:
             result = await conn.execute(
                 "UPDATE certificates SET revoked = TRUE WHERE serial_number = $1", serial_number
             )
-            return result == "UPDATE 1"
+            return bool(result == "UPDATE 1")

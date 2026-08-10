@@ -24,7 +24,8 @@ async def register_workload(req: RegistrationRequest) -> dict[str, str]:
 
 @router.get("/trust-bundle", response_class=PlainTextResponse)
 async def get_trust_bundle() -> str:
-    return ca_instance.certificate.public_bytes(serialization.Encoding.PEM).decode('utf-8')
+    import typing
+    return typing.cast(str, ca_instance.certificate.public_bytes(serialization.Encoding.PEM).decode('utf-8'))
 
 @router.post("/svid/issue", response_model=CertificateResponse)
 async def issue_svid(req: CertificateRequest) -> CertificateResponse:
